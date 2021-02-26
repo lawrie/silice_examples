@@ -1,4 +1,4 @@
-algorithm main(input uint28 gn, output uint28 gp, output uint$NUM_LEDS$ leds) {
+algorithm main(input uint28 gn, input uint1 us2_bd_dn, input uint1 us2_bd_dp, output uint28 gp, output uint$NUM_LEDS$ leds) {
   uint8 clk_filter = 8hff;
   uint1 ps2_clk_in = 1;
   uint1 ps2_dat_in = 1;
@@ -16,9 +16,9 @@ algorithm main(input uint28 gn, output uint28 gp, output uint$NUM_LEDS$ leds) {
 
   while(1) {
     // Filter the PS/2 clock
-    ps2_dat_in = gn[3,1];
+    ps2_dat_in = us2_bd_dn;
     clk_edge = 0;
-    clk_filter = {gn[1,1], clk_filter[1,7]};
+    clk_filter = {us2_bd_dp, clk_filter[1,7]};
     
     if (clk_filter == 8hff) {
       ps2_clk_in = 1;
